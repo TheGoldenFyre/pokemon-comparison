@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's your favorite pokemon?</title>
+    <link rel="stylesheet" href="index.css">
+
+    <script src="https://unpkg.com/pokeapi-js-wrapper/dist/index.js"></script>
+</head>
+<body>
+    <div id="selection-wrapper">
+        <section id="selection">
+            <div id="selection-1" class="selection-window">
+                <div>
+                    <div id="imgcontainer-1"></div>
+                    <button id="btn-1" onclick="Vote(this)">Vote 1</button>
+                </div>
+            </div>
+            <div id="selection-2" class="selection-window">
+                <div>
+                    <div id="imgcontainer-2"></div>
+                    <button id="btn-2" onclick="Vote(this)">Vote 2</button>
+                </div>
+            </div>   
+        </section>
+    </div>
+    
+    <div id="progwrap">
+        <div id="progsec">
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

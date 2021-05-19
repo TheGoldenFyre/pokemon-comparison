@@ -1,0 +1,84 @@
+:root {
+    --color-background: #1b1b1b;
+    --color-background-acc: #2c2c2c;
+    --color-text: white;
+}
+
+body  {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    background-color: var(--color-background-acc);
+}
+
+#selection-wrapper {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#selection {
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.selection-window {
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.selection-window > div {
+    text-align: center;
+}
+
+#progwrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#progsec{
+    width: 800px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+#progsecwrap{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    margin:0;
+}
+.progressinside {
+    background-color: rgb(79, 218, 24);
+    height: 100%;
+    border-radius: 5px;
+    margin-left: -2px;
+}
+.progress {
+    background-color: var(--color-background-acc);
+    height: 50px;
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    /* padding-left: -10px; */
+    border: var(--color-background) solid 10px;
+}
+
+#hwrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
