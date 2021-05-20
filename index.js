@@ -9,25 +9,32 @@ async function Run() {
     //First, get a randomized array of all pokemon
     let ps = await P.getPokemonsList()
     ps = shuffle(ps.results)
-    
-    //Then, check how many levels our tree/bracket needs to have
-    let levelCount = Math.ceil(Math.log2(ps.length)) + 1
-    
+
     //Set a global var
     pokes = ps.map(p => p.name)
     // console.log(pokes)
-    
+
     //And then set up the first matchup
     await Matchup()
 }
 
-async function AddImage(source, target) {
-    document.getElementById(`img-${target}`)?.remove()
-    var img = document.createElement("img");
-    img.src = source;
-    img.id = `img-${target}`
-    var src = document.getElementById(`imgcontainer-${target}`);
-    src.appendChild(img);
+async function AddImage(source, name, target) {
+    let alt = name[0].toUpperCase() + name.slice(1)
+    document.getElementById(`name-${target}`).innerText = alt
+
+    let img = document.getElementById(`img-${target}`)
+
+    if (img) {
+        img.src = source
+        img.alt = alt
+    } else {
+        img = document.createElement("img");
+        img.src = source
+        img.alt = alt
+        img.id = `img-${target}`
+        var src = document.getElementById(`imgcontainer-${target}`);
+        src.appendChild(img);
+    }
 }
 
 Run()
@@ -35,10 +42,19 @@ Run()
 async function Matchup() {
     if (pokes.length > 1) {
         activePokes = pokes.splice(0, 2)
-        let form1 = await P.getPokemonFormByName(activePokes[0])
-        AddImage(form1.sprites.front_default, 1)
-        let form2 = await P.getPokemonFormByName(activePokes[1])
-        AddImage(form2.sprites.front_default, 2)
+
+        // Get the image source
+        activePokes.forEach((ap, i) => {
+            // Set a temp image to be used until the actual one loads.
+            AddImage("/load.png", ap, i)
+
+            P.getPokemonFormByName(ap)
+            .then(form => AddImage(form.sprites.front_default, ap, i))
+            .catch(() => {
+                console.log(`image${i} not loaded`)
+                AddImage("/err.png", ap, i)
+            })
+        })
     }
     else {
         challengedPokes.push(...pokes)
@@ -53,7 +69,7 @@ function Vote(btn) {
     activePokes = [];
     Matchup();
     // TODO: make this into a update instead of remaking every time
-    MakeProgressBar(challengedPokes.length * 2 + pokes.length, challengedPokes.length  * 2, "CurrentRound")
+    MakeProgressBar(challengedPokes.length * 2 + pokes.length, challengedPokes.length * 2, "CurrentRound")
 }
 
 //Make the entire progress bar
@@ -78,7 +94,7 @@ function MakeProgressBar(max, value, id) {
 
     //Create the right header
     let percCounter = document.createElement("h2")
-    let percText = document.createTextNode(percentage)
+    let percText = document.createTextNode(`${value / 2}/${max / 2}`)
     percCounter.id = "perccounter"
     percCounter.appendChild(percText)
     hwrapper.appendChild(percCounter)

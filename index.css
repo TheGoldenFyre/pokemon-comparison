@@ -82,3 +82,20 @@ img {
     flex-direction: row;
     justify-content: space-between;
 }
+
+button {
+    display: block;
+    text-align: center;
+    padding: 12px 12px;
+    margin:30px auto 0;
+    background-color: #333333;
+    border-radius: 5px;
+    border-style: none;
+    color: white;
+    /* font-family: 'Helios Regular'; */
+    font-size: 0.8em;
+}
+
+button:hover {
+    background-color: var(--color-background-acc);
+}
