@@ -7,7 +7,7 @@ let activePokes = []
 async function Run() {
 
     //First, get a randomized array of all pokemon
-    let ps = await P.getPokemonsList()
+    let ps = await P.getPokemonSpeciesList()
     ps = shuffle(ps.results)
 
     //Set a global var
@@ -59,6 +59,7 @@ async function Matchup() {
     else {
         challengedPokes.push(...pokes)
         pokes = challengedPokes
+        challengedPokes = []
         Matchup()
     }
 }
