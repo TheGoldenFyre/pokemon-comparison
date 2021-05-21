@@ -11,7 +11,7 @@ async function Run() {
     ps = shuffle(ps.results)
 
     //Set a global var
-    pokes = ps.map(p => p.name).splice(0, 50)
+    pokes = ps.map(p => p.name)
     // console.log(pokes)
 
     //And then set up the first matchup
