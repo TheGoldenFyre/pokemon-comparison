@@ -11,7 +11,7 @@ async function Run() {
     ps = shuffle(ps.results)
 
     //Set a global var
-    pokes = ps.map(p => p.name)
+    pokes = ps.map(p => p.name).splice(0, 50)
     // console.log(pokes)
 
     //And then set up the first matchup
@@ -57,6 +57,11 @@ async function Matchup() {
         })
     }
     else {
+        if (challengedPokes.length + pokes.length == 1) {
+            //we're done, print the result
+            challengedPokes.push(...pokes)
+            console.log(challengedPokes[0])
+        }
         challengedPokes.push(...pokes)
         pokes = challengedPokes
         challengedPokes = []
@@ -65,12 +70,12 @@ async function Matchup() {
 }
 
 function Vote(btn) {
-    let index = parseInt(btn.id.split("-")[1]) - 1
+    let index = parseInt(btn.id.split("-")[1])
     challengedPokes.push(activePokes[index]);
     activePokes = [];
     Matchup();
     // TODO: make this into a update instead of remaking every time
-    MakeProgressBar(challengedPokes.length * 2 + pokes.length, challengedPokes.length * 2, "CurrentRound")
+    MakeProgressBar(challengedPokes.length * 2 + pokes.length + 2, challengedPokes.length * 2 + 2, "CurrentRound")
 }
 
 //Make the entire progress bar
@@ -95,7 +100,7 @@ function MakeProgressBar(max, value, id) {
 
     //Create the right header
     let percCounter = document.createElement("h2")
-    let percText = document.createTextNode(`${value / 2}/${max / 2}`)
+    let percText = document.createTextNode(`${value}/${max}`)
     percCounter.id = "perccounter"
     percCounter.appendChild(percText)
     hwrapper.appendChild(percCounter)
